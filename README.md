@@ -1,135 +1,49 @@
-# AI and IoT Mini Project
+# Overview
 
-## Overview
-Brief description of your project. What problem does it solve? What are the main objectives?
+This project focuses on building an IoT-based real-time anomaly detection system for industrial machines. The goal is to identify unusual machine behavior—such as abnormal vibrations, temperature spikes, or irregular motor sounds—before they lead to breakdowns. This helps in predictive maintenance, reduces downtime, and improves machine lifespan.
 
-## Features
-- Feature 1
-- Feature 2
-- Feature 3
-- Add more as needed
+# Working Principle
 
-## Technologies Used
-- **AI/ML Framework**: TensorFlow, PyTorch, Scikit-learn, etc.
-- **IoT Platform**: Arduino, Raspberry Pi, ESP32, etc.
-- **Programming Languages**: Python, C++, JavaScript, etc.
-- **Databases**: MongoDB, Firebase, SQLite, etc.
-- **Cloud Services**: AWS, Google Cloud, Azure, etc.
-- **Other Tools**: Docker, MQTT, REST API, etc.
+Multiple IoT sensors (vibration, temperature, current, and sound) continuously collect live machine data. The data is processed and sent to an AI model—specifically a Decision Tree Classifier—which compares the incoming sensor readings with normal patterns.
 
-## Project Structure
-```
-project-root/
-├── README.md
-├── requirements.txt
-├── src/
-│   ├── ai_model/
-│   ├── iot_controller/
-│   └── utils/
-├── data/
-│   ├── raw/
-│   └── processed/
-├── configs/
-├── tests/
-└── docs/
-```
+If the readings deviate significantly, the system marks the machine state as anomalous and triggers alerts.
 
-## Installation & Setup
+The system works in three steps:
 
-### Prerequisites
-- Python 3.8+ (or specify your version)
-- [List any hardware requirements]
-- [List any other dependencies]
+1.Data Collection: Real-time sensor data from the machine.
 
-### Steps
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd <project-directory>
-   ```
+2.AI Processing: ML model classifies the state as Normal or Anomalous.
 
-2. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+3.Action: Warning alert, machine status dashboard, or automatic shutdown (optional).
 
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+# Key Features
 
-4. Configure settings (if needed):
-   - Update configuration files in the `configs/` directory
+. Real-time monitoring of machine health
 
-## Usage
+. AI-based anomaly detection instead of fixed IF–ELSE rules
 
-### Running the Application
-```bash
-python main.py
-```
+. Early fault identification and predictive maintenance
 
-### Training the AI Model
-```bash
-python src/ai_model/train.py --epochs 100 --batch-size 32
-```
+. IoT dashboard for live visualization
 
-### Deploying to IoT Device
-```bash
-[Add specific deployment instructions]
-```
+. Reduces machine downtime and repair costs
 
-## Dataset
-- **Source**: [Where the data comes from]
-- **Size**: [Number of samples, storage size, etc.]
-- **Format**: [CSV, JSON, Images, etc.]
+# Technologies Used
 
-## Model Architecture
-Describe your AI model:
-- Model type (CNN, RNN, Neural Network, etc.)
-- Input/output specifications
-- Key hyperparameters
-- Performance metrics (accuracy, precision, recall, etc.)
+. IoT: ESP32, Vibration sensor (ADXL345/MPU6050), Temperature sensor, Sound sensor
 
-## Results
-- Accuracy: X%
-- Precision: X%
-- Recall: X%
-- [Add other relevant metrics]
+. AI Model: Decision Tree Classifier
 
-### Sample Output
-[Include screenshots or sample output if applicable]
+. Software: Python, MQTT/HTTP, Flask/Firebase (optional)
 
-## IoT Integration
-- **Hardware Components**: [List sensors, actuators, microcontrollers used]
-- **Communication Protocol**: [MQTT, HTTP, BLE, etc.]
-- **Data Flow**: Describe how data flows from IoT devices to AI model
+# Applications
 
-## Known Issues & Limitations
-- [List any current issues]
-- [List limitations of the project]
+. Manufacturing industries
 
-## Future Enhancements
-- [ ] Feature or improvement 1
-- [ ] Feature or improvement 2
-- [ ] Feature or improvement 3
+. Motors & pumps
 
-## Contributors
-- [Your Name] - [Your Role]
-- [Team Member Name] - [Their Role]
+. CNC machines
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+. Fans, compressors, turbines
 
-## Acknowledgments
-- Mention any resources, tutorials, or open-source projects that helped
-- Credit any mentors or supervisors
-
-## Contact
-For questions or suggestions, please contact:
-- Email: [your-email@college.edu]
-- Discord/Slack: [contact info]
-
----
-**Last Updated**: February 2026
-**Status**: [In Development/Complete/Deployed]
+. Any system with predictable operation patterns
