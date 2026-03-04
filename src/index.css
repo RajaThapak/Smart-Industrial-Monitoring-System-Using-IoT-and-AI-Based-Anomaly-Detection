@@ -1,0 +1,225 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 217 91% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 214 32% 91%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 217 91% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 92% 20%;
+
+    --success: 152 69% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 215 16% 47%;
+    --sidebar-primary: 217 91% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 217 91% 50%;
+
+    --chart-blue: 217 91% 50%;
+    --chart-amber: 38 92% 50%;
+    --chart-emerald: 152 69% 36%;
+    --chart-sky: 199 89% 48%;
+    --chart-violet: 258 90% 60%;
+
+    --gradient-glow: linear-gradient(135deg, hsl(217 91% 50% / 0.06), hsl(199 89% 48% / 0.04));
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.06), 0 1px 2px -1px hsl(0 0% 0% / 0.06);
+    --shadow-glow: 0 0 12px -4px hsl(217 91% 50% / 0.12);
+
+    --chart-grid: 214 32% 91%;
+    --chart-tick: 215 16% 47%;
+    --chart-line-primary: 217 91% 50%;
+    --chart-line-amber: 38 92% 50%;
+    --chart-line-emerald: 152 69% 36%;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 96%;
+
+    --card: 222 40% 14%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 222 40% 14%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 215 25% 27%;
+    --secondary-foreground: 210 40% 96%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 222 47% 6%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 6%;
+
+    --success: 152 69% 41%;
+    --success-foreground: 222 47% 6%;
+
+    --info: 199 89% 48%;
+    --info-foreground: 222 47% 6%;
+
+    --border: 215 28% 17%;
+    --input: 215 28% 17%;
+    --ring: 217 91% 60%;
+
+    --sidebar-background: 222 47% 9%;
+    --sidebar-foreground: 215 20% 55%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 222 35% 15%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 215 28% 14%;
+    --sidebar-ring: 217 91% 60%;
+
+    --chart-blue: 217 91% 60%;
+    --chart-amber: 38 92% 50%;
+    --chart-emerald: 152 69% 41%;
+    --chart-sky: 199 89% 48%;
+    --chart-violet: 258 90% 66%;
+
+    --gradient-glow: linear-gradient(135deg, hsl(217 91% 60% / 0.12), hsl(199 89% 48% / 0.08));
+    --shadow-card: 0 4px 24px -4px hsl(222 47% 4% / 0.5);
+    --shadow-glow: 0 0 20px -4px hsl(217 91% 60% / 0.2);
+
+    --chart-grid: 215 28% 17%;
+    --chart-tick: 215 20% 55%;
+    --chart-line-primary: 217 91% 60%;
+    --chart-line-amber: 38 92% 50%;
+    --chart-line-emerald: 152 69% 41%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .kpi-card {
+    @apply relative overflow-hidden rounded-xl border border-border bg-card p-5;
+    box-shadow: var(--shadow-card);
+  }
+
+  .kpi-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-40;
+    background: var(--gradient-glow);
+  }
+
+  .panel {
+    @apply rounded-xl border border-border bg-card p-5;
+    box-shadow: var(--shadow-card);
+  }
+
+  .status-dot {
+    @apply h-2.5 w-2.5 rounded-full;
+    box-shadow: 0 0 6px currentColor;
+  }
+
+  .badge-severity-high {
+    @apply bg-destructive/20 text-destructive border border-destructive/30;
+  }
+
+  .badge-severity-medium {
+    @apply border;
+    background: hsl(var(--warning) / 0.2);
+    color: hsl(var(--warning));
+    border-color: hsl(var(--warning) / 0.3);
+  }
+
+  .badge-severity-low {
+    @apply bg-primary/20 text-primary border border-primary/30;
+  }
+
+  .emergency-btn {
+    @apply relative font-bold uppercase tracking-wider;
+    background: linear-gradient(135deg, hsl(0 84% 60%), hsl(0 84% 48%));
+    box-shadow: 0 2px 8px hsl(0 84% 60% / 0.3);
+  }
+
+  .dark .emergency-btn {
+    box-shadow: 0 0 20px hsl(0 84% 60% / 0.4), inset 0 1px 0 hsl(0 84% 70% / 0.3);
+  }
+
+  .emergency-btn:hover {
+    box-shadow: 0 4px 16px hsl(0 84% 60% / 0.4);
+  }
+
+  .dark .emergency-btn:hover {
+    box-shadow: 0 0 30px hsl(0 84% 60% / 0.6), inset 0 1px 0 hsl(0 84% 70% / 0.3);
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 8px hsl(217 91% 50% / 0.15);
+  }
+
+  .glow-red {
+    box-shadow: 0 0 8px hsl(0 84% 60% / 0.15);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2s ease-in-out infinite;
+}
