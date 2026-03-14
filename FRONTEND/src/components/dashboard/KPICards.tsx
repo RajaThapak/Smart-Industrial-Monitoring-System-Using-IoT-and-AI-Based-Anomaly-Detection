@@ -1,4 +1,4 @@
-import { Thermometer, Activity, Volume2, Brain, Zap } from "lucide-react";
+import { Thermometer, Activity, Volume2, Brain, Zap, Gauge } from "lucide-react";
 
 const kpis = [
   {
@@ -26,6 +26,14 @@ const kpis = [
     trend: "-0.4%",
   },
   {
+    label: "Motor Current",
+    value: "4.6",
+    unit: "A",
+    icon: Gauge,
+    status: "purple" as const,
+    trend: "+1.8%",
+  },
+  {
     label: "AI Anomaly Score",
     value: "23",
     unit: "%",
@@ -48,6 +56,7 @@ const statusColors: Record<string, string> = {
   warning: "text-warning",
   critical: "text-destructive",
   active: "text-primary",
+  purple: "text-violet-500",
 };
 
 const statusBg: Record<string, string> = {
@@ -55,11 +64,12 @@ const statusBg: Record<string, string> = {
   warning: "bg-warning/10",
   critical: "bg-destructive/10",
   active: "bg-primary/10",
+  purple: "bg-violet-500/10",
 };
 
 export function KPICards() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
       {kpis.map((kpi) => (
         <div key={kpi.label} className="kpi-card">
           <div className="relative z-10 flex items-start justify-between">

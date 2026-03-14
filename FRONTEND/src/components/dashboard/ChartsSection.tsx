@@ -5,19 +5,14 @@ import { useTheme } from "@/hooks/use-theme";
 
 const generateData = (base: number, variance: number, points = 20) =>
   Array.from({ length: points }, (_, i) => ({
-    time: `${i}s`,
+    time: `${i + 1} min`,
     value: +(base + (Math.random() - 0.5) * variance).toFixed(1),
   }));
 
 const tempData = generateData(72, 8);
 const vibData = generateData(3.8, 2);
 const soundData = generateData(68, 15);
-
-const chartConfig = {
-  style: {
-    backgroundColor: "transparent",
-  },
-};
+const currentData = generateData(12.5, 4);
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
@@ -47,6 +42,7 @@ function useChartColors() {
     primary: isDark ? "hsl(217 91% 60%)" : "hsl(217 91% 50%)",
     amber: "hsl(38 92% 50%)",
     emerald: isDark ? "hsl(152 69% 41%)" : "hsl(152 69% 36%)",
+    purple: isDark ? "hsl(270 70% 65%)" : "hsl(270 70% 55%)",
   };
 }
 
@@ -54,7 +50,7 @@ export function ChartsSection() {
   const colors = useChartColors();
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <ChartCard title="Temperature (°C)">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={tempData}>
@@ -87,6 +83,18 @@ export function ChartsSection() {
             <YAxis tick={{ fontSize: 10, fill: colors.tick }} axisLine={false} domain={["auto", "auto"]} />
             <Tooltip content={<CustomTooltip />} />
             <Area type="monotone" dataKey="value" stroke={colors.emerald} fill={`${colors.emerald.slice(0, -1)} / 0.08)`} strokeWidth={2} />
+          </AreaChart>
+        </ResponsiveContainer>
+      </ChartCard>
+
+      <ChartCard title="Motor Current (A)">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={currentData}>
+            <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} />
+            <XAxis dataKey="time" tick={{ fontSize: 10, fill: colors.tick }} axisLine={false} />
+            <YAxis tick={{ fontSize: 10, fill: colors.tick }} axisLine={false} domain={["auto", "auto"]} />
+            <Tooltip content={<CustomTooltip />} />
+            <Area type="monotone" dataKey="value" stroke={colors.purple} fill={`${colors.purple.slice(0, -1)} / 0.08)`} strokeWidth={2} />
           </AreaChart>
         </ResponsiveContainer>
       </ChartCard>
