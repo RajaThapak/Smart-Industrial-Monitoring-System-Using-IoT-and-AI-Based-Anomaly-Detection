@@ -9,14 +9,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { useAuthSession } from "@/hooks/useAuthSession";
+import { API_BASE, readApiResponse } from "@/lib/api";
 
 type AuthMode = "login" | "register";
 
 type AuthScreenProps = {
   mode: AuthMode;
 };
-
-const API_BASE = ""; // relative paths -> dev proxy will forward to backend
 
 export function AuthScreenEnhanced({ mode }: AuthScreenProps) {
   const { toggle } = useTheme();
@@ -80,10 +79,10 @@ export function AuthScreenEnhanced({ mode }: AuthScreenProps) {
         body: JSON.stringify(payload),
       });
 
-      const result = await response.json();
+      const { data: result, rawText } = await readApiResponse<{ message?: string; user?: { id?: number; username?: string; email?: string } }>(response);
 
       if (!response.ok) {
-        throw new Error(result.message || "Request failed");
+        throw new Error(result?.message || rawText || "Request failed");
       }
 
       localStorage.setItem("sims-user", JSON.stringify(result.user ?? {}));

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Telemetry, Point } from "./useTelemetry";
+import { API_BASE } from "@/lib/api";
 
 type BackendTelemetry = Telemetry & {
   anomalyScores: Point[];
@@ -20,7 +21,9 @@ export function useBackendTelemetry(): BackendTelemetry {
     const fetchData = async () => {
       try {
         console.log("🔄 Fetching predictions from backend...");
-        const response = await fetch("http://127.0.0.1:8000/api/predictions/");
+        const response = await fetch(`${API_BASE}/api/predictions/`, {
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);

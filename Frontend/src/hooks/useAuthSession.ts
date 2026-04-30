@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { API_BASE } from "@/lib/api";
 
 type AuthUser = {
   id: number;
@@ -13,8 +14,6 @@ type AuthState = {
   refresh: () => Promise<void>;
   logout: () => Promise<void>;
 };
-
-const API_BASE = ""; // use relative paths so dev proxy can forward to backend
 
 export function useAuthSession(): AuthState {
   const [authenticated, setAuthenticated] = useState(false);
