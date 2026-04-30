@@ -18,6 +18,7 @@ class PredictionHistory(models.Model):
         max_length=10, 
         choices=[('Normal', 'Normal'), ('Anomaly', 'Anomaly')]
     )
+    anomaly_score = models.FloatField(default=0.0)  # 0-1, higher = more anomalous
     
     # Metadata
     timestamp = models.DateTimeField(auto_now_add=True)
