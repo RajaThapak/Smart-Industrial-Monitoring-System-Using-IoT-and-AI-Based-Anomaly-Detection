@@ -1,0 +1,12 @@
+Django==6.0.4
+numpy>=1.25
+scikit-learn>=1.2
+joblib>=1.2
+pandas>=2.0
+gunicorn>=20.1
+whitenoise>=6.0
+psycopg2-binary>=2.9
+
+# Optional (add if you use them in future):
+# djangorestframework
+# django-cors-headers
