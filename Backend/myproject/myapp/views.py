@@ -60,6 +60,11 @@ def register_user(request):
     request.session.set_expiry(60 * 60 * 24 * 30 if remember_me else 0)
     request.session.modified = True
 
+    # Debug logging
+    print(f"✅ register_user: User {user.username} registered and logged in")
+    print(f"   Session key: {request.session.session_key}")
+    print(f"   Remember me: {remember_me}")
+
     return JsonResponse(
         {
             "status": "success",
@@ -108,6 +113,12 @@ def login_user(request):
     auth_login(request, authenticated)
     request.session.set_expiry(60 * 60 * 24 * 30 if remember_me else 0)
     request.session.modified = True
+    
+    # Debug logging
+    print(f"✅ login_user: User {authenticated.username} logged in")
+    print(f"   Session key: {request.session.session_key}")
+    print(f"   Remember me: {remember_me}")
+    
     return JsonResponse(
         {
             "status": "success",

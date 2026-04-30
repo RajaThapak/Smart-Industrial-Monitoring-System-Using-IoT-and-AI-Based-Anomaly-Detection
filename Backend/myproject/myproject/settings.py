@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1ieq4+*4bo^uhnumg0%x5zg@+o9@yfkl$asdnr)-_r97!i48jt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']  # Allow all hosts for development
 
@@ -52,14 +53,7 @@ MIDDLEWARE = [
 ]
 
 # CORS Configuration
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://localhost:8081",
-    "http://127.0.0.1:8080",
-    "http://127.0.0.1:8081",
-    "http://172.16.75.137:8080",
-    "http://172.16.75.137:8081",
-]
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:8080,http://localhost:8081,http://127.0.0.1:8080,http://127.0.0.1:8081,http://172.16.75.137:8080,http://172.16.75.137:8081').split(',')
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'myproject.urls'
@@ -128,3 +122,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Session Configuration for Cross-Domain Cookie Support
+# These settings enable session cookies to work across different domains (e.g., frontend and backend on separate Render services)
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Use database-backed sessions
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 days default
+SESSION_COOKIE_SECURE = os.getenv('SESSION_COOKIE_SECURE', 'False') == 'True'  # Requires HTTPS in production
+SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from accessing the cookie
+SESSION_COOKIE_SAMESITE = 'None' if os.getenv('SESSION_COOKIE_SECURE', 'False') == 'True' else 'Lax'  # 'None' requires HTTPS
+SESSION_COOKIE_DOMAIN = None  # Allow cookies from any subdomain (or set to specific domain)
+SESSION_SAVE_EVERY_REQUEST = True  # Ensure session is saved after every request
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost:8080,http://localhost:8081,http://127.0.0.1:8080,http://127.0.0.1:8081').split(',')
