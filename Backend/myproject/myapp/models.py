@@ -1,7 +1,5 @@
 from django.db import models
-
-# myapp/models.py
-from django.db import models
+from datetime import datetime
 
 class PredictionHistory(models.Model):
     """Store prediction history for analytics"""
@@ -21,7 +19,7 @@ class PredictionHistory(models.Model):
     anomaly_score = models.FloatField(default=0.0)  # 0-1, higher = more anomalous
     
     # Metadata
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=False, default=datetime.now)  # Let view control timestamp
     
     def __str__(self):
         return f"{self.label} at {self.timestamp}"
