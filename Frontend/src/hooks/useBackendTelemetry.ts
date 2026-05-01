@@ -20,9 +20,13 @@ export function useBackendTelemetry(): BackendTelemetry {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("🔄 Fetching predictions from backend...");
-        const response = await fetch(`${API_BASE}/api/predictions/`, {
+        // Force fresh fetch with cache-bust
+        const timestamp = new Date().getTime();
+        const url = `${API_BASE}/api/predictions/?t=${timestamp}`;
+        console.log("🔄 Fetching predictions from backend...", url);
+        const response = await fetch(url, {
           credentials: "include",
+          cache: "no-store",
         });
 
         if (!response.ok) {
@@ -71,7 +75,7 @@ export function useBackendTelemetry(): BackendTelemetry {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 5000);
+    const interval = setInterval(fetchData, 2000); // Poll every 2 seconds instead of 5
     return () => clearInterval(interval);
   }, []);
 
